@@ -866,6 +866,10 @@ def do_upload_to_image(cs, args):
 @utils.arg('--display-description', metavar='<display-description>',
            help='Backup description. Default=None.',
            default=None)
+@utils.arg('--force',
+           metavar='<True|False>',
+           default=False,
+           help='force to backup in-use volume or not.')
 @utils.service_type('volume')
 def do_backup_create(cs, args):
     """Creates a volume backup."""
@@ -873,7 +877,8 @@ def do_backup_create(cs, args):
     backup = cs.backups.create(volume.id,
                                args.container,
                                args.display_name,
-                               args.display_description)
+                               args.display_description,
+                               args.force)
 
     info = {"volume_id": volume.id}
     info.update(backup._info)
