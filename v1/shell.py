@@ -927,6 +927,12 @@ def do_backup_delete(cs, args):
            help='ID or name of backup volume to '
            'which to restore. Default=None.',
            default=None)
+@utils.arg('--availability-zone',
+           metavar='<availability-zone>',
+           help='backup restore by availability zone.')
+@utils.arg('--description',
+           metavar='description',
+           help='backup restore description.')
 @utils.service_type('volume')
 def do_backup_restore(cs, args):
     """Restores a backup."""
@@ -934,7 +940,9 @@ def do_backup_restore(cs, args):
         volume_id = utils.find_volume(cs, args.volume_id).id
     else:
         volume_id = None
-    cs.restores.restore(args.backup, volume_id)
+    cs.restores.restore(args.backup, volume_id,
+                        args.availability_zone,
+                        args.description)
 
 
 @utils.arg('volume', metavar='<volume>',
