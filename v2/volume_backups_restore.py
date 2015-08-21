@@ -40,6 +40,6 @@ class VolumeBackupRestoreManager(base.Manager):
         """
         body = {'restore': {'volume_id': volume_id,
                             'availability_zone': availability_zone,
-                            'description' : description}}
+                            'description': description}}
         return self._create("/backups/%s/restore" % backup_id,
                             body, "restore")
